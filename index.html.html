@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>YKS Net Hesaplama</title>
+    <!-- FontAwesome (İkonlar İçin) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Kendi CSS Dosyamız -->
+    <link rel="stylesheet" href="yks.css">
+    <script src="yks.js"></script>
+</head>
+<body>
+
+<!-- Gökkuşağı Efekti (Aydınlık Tema) -->
+<div class="rainbow-container">
+    <div class="rainbow"></div>
+</div>
+
+<!-- Yağmur Efekti (Karanlık Tema) -->
+<div id="rain-container" class="rain-container"></div>
+
+<div class="container">
+    <!-- Üst Başlık ve Işık Butonu -->
+    <div class="header-area">
+        <h2>YKS Net Hesaplama</h2>
+        <!-- Işık kapatma (Ampul) butonu -->
+        <button id="theme-toggle" class="theme-btn" title="Işığı Kapat">
+            <i class="fa-solid fa-lightbulb"></i>
+        </button>
+    </div>
+
+    <!-- Sekme Butonları -->
+    <div class="tabs">
+        <button class="tab-btn active" onclick="sekmeDegistir('tyt', this)">TYT</button>
+        <button class="tab-btn" onclick="sekmeDegistir('ayt', this)">AYT</button>
+    </div>
+
+    <!-- ================= TYT İÇERİĞİ ================= -->
+    <div id="tyt" class="tab-content active-content">
+        
+        <div class="subject-group">
+            <h4>Türkçe (40 Soru)</h4>
+            <div class="inputs">
+                <div class="input-box"><label>Doğru</label><input type="number" id="tr-dogru" min="0" max="40"></div>
+                <div class="input-box"><label>Yanlış</label><input type="number" id="tr-yanlis" min="0" max="40"></div>
+                <div class="net-result" id="tr-net">0.00 Net</div>
+            </div>
+        </div>
+
+        <div class="subject-group">
+            <h4>Temel Matematik (40 Soru)</h4>
+            <div class="inputs">
+                <div class="input-box"><label>Doğru</label><input type="number" id="mat-dogru" min="0" max="40"></div>
+                <div class="input-box"><label>Yanlış</label><input type="number" id="mat-yanlis" min="0" max="40"></div>
+                <div class="net-result" id="mat-net">0.00 Net</div>
+            </div>
+        </div>
+
+        <div class="subject-group">
+            <h4>Sosyal Bilimler (20 Soru)</h4>
+            <div class="inputs">
+                <div class="input-box"><label>Doğru</label><input type="number" id="sos-dogru" min="0" max="20"></div>
+                <div class="input-box"><label>Yanlış</label><input type="number" id="sos-yanlis" min="0" max="20"></div>
+                <div class="net-result" id="sos-net">0.00 Net</div>
+            </div>
+        </div>
+
+        <div class="subject-group">
+            <h4>Fen Bilimleri (20 Soru)</h4>
+            <div class="inputs">
+                <div class="input-box"><label>Doğru</label><input type="number" id="fen-dogru" min="0" max="20"></div>
+                <div class="input-box"><label>Yanlış</label><input type="number" id="fen-yanlis" min="0" max="20"></div>
+                <div class="net-result" id="fen-net">0.00 Net</div>
+            </div>
+        </div>
+        
+        <div class="total-net tyt-total-box">
+            TYT Toplam Net: <span id="toplam-tyt-net">0.00</span>
+        </div>
+    </div>
+
+    <!-- ================= AYT İÇERİĞİ ================= -->
+    <div id="ayt" class="tab-content">
+        
+        <!-- Sayısal Dersleri -->
+        <div class="subject-group">
+            <h4>AYT Matematik (40 Soru)</h4>
+            <div class="inputs">
+                <div class="input-box"><label>Doğru</label><input type="number" id="ayt-mat-dogru" min="0" max="40"></div>
+                <div class="input-box"><label>Yanlış</label><input type="number" id="ayt-mat-yanlis" min="0" max="40"></div>
+                <div class="net-result" id="ayt-mat-net">0.00 Net</div>
+            </div>
+        </div>
+
+        <div class="subject-group">
+            <h4>Fizik (14 Soru)</h4>
+            <div class="inputs">
+                <div class="input-box"><label>Doğru</label><input type="number" id="fiz-dogru" min="0" max="14"></div>
+                <div class="input-box"><label>Yanlış</label><input type="number" id="fiz-yanlis" min="0" max="14"></div>
+                <div class="net-result" id="fiz-net">0.00 Net</div>
+            </div>
+        </div>
+
+        <div class="subject-group">
+            <h4>Kimya (13 Soru)</h4>
+            <div class="inputs">
+                <div class="input-box"><label>Doğru</label><input type="number" id="kim-dogru" min="0" max="13"></div>
+                <div class="input-box"><label>Yanlış</label><input type="number" id="kim-yanlis" min="0" max="13"></div>
+                <div class="net-result" id="kim-net">0.00 Net</div>
+            </div>
+        </div>
+
+        <div class="subject-group">
+            <h4>Biyoloji (13 Soru)</h4>
+            <div class="inputs">
+                <div class="input-box"><label>Doğru</label><input type="number" id="biy-dogru" min="0" max="13"></div>
+                <div class="input-box"><label>Yanlış</label><input type="number" id="biy-yanlis" min="0" max="13"></div>
+                <div class="net-result" id="biy-net">0.00 Net</div>
+            </div>
+        </div>
+
+        <!-- Edebiyat ve Sosyal-1 -->
+        <div class="subject-group">
+            <h4>Türk Dili ve Edebiyatı (24 Soru)</h4>
+            <div class="inputs">
+                <div class="input-box"><label>Doğru</label><input type="number" id="edeb-dogru" min="0" max="24"></div>
+                <div class="input-box"><label>Yanlış</label><input type="number" id="edeb-yanlis" min="0" max="24"></div>
+                <div class="net-result" id="edeb-net">0.00 Net</div>
+            </div>
+        </div>
+
+        <div class="subject-group">
+            <h4>Tarih-1 (10 Soru)</h4>
+            <div class="inputs">
+                <div class="input-box"><label>Doğru</label><input type="number" id="tar1-dogru" min="0" max="10"></div>
+                <div class="input-box"><label>Yanlış</label><input type="number" id="tar1-yanlis" min="0" max="10"></div>
+                <div class="net-result" id="tar1-net">0.00 Net</div>
+            </div>
+        </div>
+
+        <div class="subject-group">
+            <h4>Coğrafya-1 (6 Soru)</h4>
+            <div class="inputs">
+                <div class="input-box"><label>Doğru</label><input type="number" id="cog1-dogru" min="0" max="6"></div>
+                <div class="input-box"><label>Yanlış</label><input type="number" id="cog1-yanlis" min="0" max="6"></div>
+                <div class="net-result" id="cog1-net">0.00 Net</div>
+            </div>
+        </div>
+
+        <!-- Sosyal-2 -->
+        <div class="subject-group">
+            <h4>Tarih-2 (11 Soru)</h4>
+            <div class="inputs">
+                <div class="input-box"><label>Doğru</label><input type="number" id="tar2-dogru" min="0" max="11"></div>
+                <div class="input-box"><label>Yanlış</label><input type="number" id="tar2-yanlis" min="0" max="11"></div>
+                <div class="net-result" id="tar2-net">0.00 Net</div>
+            </div>
+        </div>
+
+        <div class="subject-group">
+            <h4>Coğrafya-2 (11 Soru)</h4>
+            <div class="inputs">
+                <div class="input-box"><label>Doğru</label><input type="number" id="cog2-dogru" min="0" max="11"></div>
+                <div class="input-box"><label>Yanlış</label><input type="number" id="cog2-yanlis" min="0" max="11"></div>
+                <div class="net-result" id="cog2-net">0.00 Net</div>
+            </div>
+        </div>
+
+        <div class="subject-group">
+            <h4>Felsefe Grubu (12 Soru)</h4>
+            <div class="inputs">
+                <div class="input-box"><label>Doğru</label><input type="number" id="fels-dogru" min="0" max="12"></div>
+                <div class="input-box"><label>Yanlış</label><input type="number" id="fels-yanlis" min="0" max="12"></div>
+                <div class="net-result" id="fels-net">0.00 Net</div>
+            </div>
+        </div>
+
+        <div class="subject-group">
+            <h4>Din Kültürü (6 Soru)</h4>
+            <div class="inputs">
+                <div class="input-box"><label>Doğru</label><input type="number" id="din-dogru" min="0" max="6"></div>
+                <div class="input-box"><label>Yanlış</label><input type="number" id="din-yanlis" min="0" max="6"></div>
+                <div class="net-result" id="din-net">0.00 Net</div>
+            </div>
+        </div>
+
+        <!-- Alanlara Göre Toplamlar -->
+        <div class="total-net sayisal-total">
+            Sayısal Toplam Net: <span id="toplam-say-net">0.00</span>
+        </div>
+        
+        <div class="total-net ea-total">
+            Eşit Ağırlık Toplam Net: <span id="toplam-ea-net">0.00</span>
+        </div>
+
+        <div class="total-net sozel-total">
+            Sözel Toplam Net: <span id="toplam-soz-net">0.00</span>
+        </div>
+    </div>
+
+</div>
+
+</body>
+</html>

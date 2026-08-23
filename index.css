@@ -1,0 +1,244 @@
+* {
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    transition: background-color 0.4s, color 0.4s, opacity 0.8s ease-in-out;
+}
+
+body {
+    background-color: #f4f7f6;
+    color: #333;
+    display: flex;
+    justify-content: center;
+    padding: 20px;
+    margin: 0;
+    overflow-x: hidden;
+}
+
+/* ================= GÖKKUŞAĞI EFEKTİ (Aydınlık Tema) ================= */
+.rainbow-container {
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    pointer-events: none; /* Tıklamalar arkaya geçsin */
+    z-index: -2;
+    overflow: hidden;
+    opacity: 1; /* Aydınlıkta görünür */
+    transition: opacity 1s ease-in-out;
+}
+
+.rainbow {
+    position: absolute;
+    bottom: -30vh; /* Alt yarısını gizleyerek bir kemer oluşturuyoruz */
+    left: 50%;
+    transform: translateX(-50%);
+    width: 90vw;
+    height: 90vw;
+    border-radius: 50%;
+    /* Gökkuşağı renklerini iç içe gölgeler (box-shadow) ile yapıyoruz */
+    box-shadow: 
+        0 0 0 15px rgba(255, 0, 0, 0.15),
+        0 0 0 30px rgba(255, 127, 0, 0.15),
+        0 0 0 45px rgba(255, 255, 0, 0.15),
+        0 0 0 60px rgba(0, 255, 0, 0.15),
+        0 0 0 75px rgba(0, 0, 255, 0.15),
+        0 0 0 90px rgba(75, 0, 130, 0.15),
+        0 0 0 105px rgba(148, 0, 211, 0.15);
+    filter: blur(12px); /* Renkleri yumuşatıp birbirine karıştırır */
+}
+
+/* Karanlık modda gökkuşağını şeffaf yapıp gizle */
+body.dark-mode .rainbow-container {
+    opacity: 0;
+}
+
+/* ================= YAĞMUR EFEKTİ (Karanlık Tema) ================= */
+.rain-container {
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    pointer-events: none; 
+    z-index: -1; 
+    overflow: hidden;
+    opacity: 0; /* Aydınlıkta yağmur şeffaf (gizli) */
+    transition: opacity 1s ease-in-out;
+}
+
+/* Karanlık modda yağmur görünür olsun */
+body.dark-mode .rain-container {
+    opacity: 1;
+}
+
+.drop {
+    position: absolute;
+    bottom: 100%;
+    width: 2px;
+    height: 15px;
+    background: rgba(255, 255, 255, 0.2); /* Gece damlaları beyaz-şeffaf */
+    animation: fall linear infinite;
+}
+
+@keyframes fall {
+    to { transform: translateY(110vh); }
+}
+
+/* ================= FORM VE TASARIM ================= */
+.container {
+    background-color: white;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    width: 100%;
+    max-width: 600px;
+    z-index: 1; /* Efektlerin önünde durması için */
+    position: relative; /* z-index'in çalışması için */
+}
+
+.header-area {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+h2 {
+    color: #2c3e50;
+    margin: 0;
+}
+
+.theme-btn {
+    background: none;
+    border: none;
+    font-size: 28px;
+    cursor: pointer;
+    outline: none;
+    color: #f1c40f; 
+    text-shadow: 0 0 15px rgba(241, 196, 15, 0.8); 
+    transition: color 0.4s, text-shadow 0.4s, transform 0.2s;
+}
+.theme-btn:hover { transform: scale(1.1); }
+
+.tabs {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 25px;
+}
+.tab-btn {
+    flex: 1;
+    padding: 12px;
+    border: none;
+    background-color: #ecf0f1;
+    color: #7f8c8d;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 16px;
+}
+.tab-btn.active {
+    background-color: #3498db;
+    color: white;
+}
+.tab-content { display: none; }
+.tab-content.active-content {
+    display: block;
+    animation: fadeIn 0.4s ease-in-out;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-5px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.subject-group {
+    margin-bottom: 15px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #eee;
+}
+.subject-group h4 {
+    margin: 0 0 10px 0;
+    color: #34495e;
+    font-size: 15px;
+}
+.inputs {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+.input-box {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+label {
+    font-size: 12px;
+    margin-bottom: 5px;
+    color: #7f8c8d;
+}
+input[type="number"] {
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    outline: none;
+    background-color: white;
+    color: #333;
+}
+input[type="number"]:focus { border-color: #3498db; }
+
+.net-result {
+    flex: 1;
+    text-align: center;
+    font-weight: bold;
+    font-size: 16px;
+    color: #27ae60;
+    margin-top: 15px;
+}
+
+/* Toplam Sonuç Alanları */
+.total-net {
+    text-align: center;
+    font-size: 20px;
+    font-weight: bold;
+    margin-top: 15px;
+    padding: 15px;
+    border-radius: 8px;
+}
+.tyt-total-box { background-color: #fdf2f0; color: #e74c3c; }
+.sayisal-total { background-color: #e8f8f5; color: #16a085; }
+.ea-total { background-color: #fef9e7; color: #f39c12; }
+.sozel-total { background-color: #f5eef8; color: #8e44ad; }
+
+
+/* ================= KARANLIK TEMA RENKLERİ ================= */
+body.dark-mode {
+    background-color: #121212;
+    color: #e0e0e0;
+}
+body.dark-mode .container {
+    background-color: #1e1e1e;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+}
+body.dark-mode .theme-btn {
+    color: #555; 
+    text-shadow: none; 
+}
+body.dark-mode .theme-btn:hover { color: #777; }
+body.dark-mode h2, 
+body.dark-mode .subject-group h4 { color: #e0e0e0; }
+body.dark-mode .tab-btn {
+    background-color: #2c2c2c;
+    color: #aaa;
+}
+body.dark-mode .tab-btn.active {
+    background-color: #3498db;
+    color: white;
+}
+body.dark-mode input[type="number"] {
+    background-color: #2c2c2c;
+    border: 1px solid #444;
+    color: #e0e0e0;
+}
+body.dark-mode input[type="number"]:focus { border-color: #3498db; }
+body.dark-mode .subject-group { border-bottom: 1px solid #333; }
+
+/* Karanlık Temada Sonuç Kutuları */
+body.dark-mode .tyt-total-box { background-color: rgba(231, 76, 60, 0.15); color: #ff7675; }
+body.dark-mode .sayisal-total { background-color: rgba(22, 160, 133, 0.15); color: #1abc9c; }
+body.dark-mode .ea-total { background-color: rgba(243, 156, 18, 0.15); color: #f1c40f; }
+body.dark-mode .sozel-total { background-color: rgba(142, 68, 173, 0.15); color: #cd84f1; }
